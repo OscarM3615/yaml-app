@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Render } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Get,
+	Param,
+	ParseIntPipe,
+	Post,
+	Render
+} from '@nestjs/common';
 import { Product } from './products/product.entity';
 import { ProductsService } from './products/products.service';
 
@@ -25,4 +33,12 @@ export class AppController {
 	@Get('/new')
 	@Render('new-product')
 	async productForm() {}
+
+	@Post('/delete-product/:id')
+	async deleteProduct(@Param('id', ParseIntPipe) id: number) {
+		const product = await this.products.findById(id);
+		await this.products.delete(product);
+
+		return { message: 'done' };
+	}
 }

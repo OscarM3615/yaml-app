@@ -6,22 +6,21 @@
 		<%- include('partials/header', { active: 'home' }) %>
 
 		<div class="container mt-4 d-flex flex-column gap-2">
-			<% if (products.length) { %>
-				<% for (const product of products) { %>
-					<%- include('partials/product-card', { product }) %>
-				<% } %>
-			<% } else { %>
-				<p class="text-center">No hay productos disponibles.</p>
+			<% if (products.length) { %> <% for (const product of products) { %> <%-
+			include('partials/product-card', { product }) %> <% } %> <% } else { %>
+			<p class="text-center">No hay productos disponibles.</p>
 			<% } %>
 		</div>
 
 		<script>
-			const exportProduct = (id) => {
-				console.log(`Export product with id ${id}`);
-			};
+			const exportProduct = (id) => {};
 
-			const deleteProduct = (id) => {
-				console.log(`Delete product with id ${id}`);
+			const deleteProduct = async (id) => {
+				const response = await fetch(`/delete-product/${id}`, {
+					method: 'POST'
+				});
+
+				window.location.reload();
 			};
 		</script>
 	</body>
