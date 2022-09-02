@@ -6,8 +6,12 @@
 		<%- include('partials/header', { active: 'home' }) %>
 
 		<div class="container mt-4 d-flex flex-column gap-2">
-			<% for (const product of products) { %>
-				<%- include('partials/product-card', { product }) %>
+			<% if (products.length) { %>
+				<% for (const product of products) { %>
+					<%- include('partials/product-card', { product }) %>
+				<% } %>
+			<% } else { %>
+				<p class="text-center">No hay productos disponibles.</p>
 			<% } %>
 		</div>
 

@@ -19,8 +19,7 @@ export class ProductsService {
 	) {}
 
 	findAll(): Promise<Product[]> {
-		return Promise.resolve(products);
-		// return this.repo.find();
+		return this.repo.find();
 	}
 
 	findById(id: number): Promise<Product> {
