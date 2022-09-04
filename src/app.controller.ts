@@ -2,11 +2,14 @@ import {
 	Body,
 	Controller,
 	Get,
+	Header,
 	Param,
 	ParseIntPipe,
 	Post,
-	Render
+	Render,
+	StreamableFile
 } from '@nestjs/common';
+import * as YAML from 'yaml';
 import { Product } from './products/product.entity';
 import { ProductsService } from './products/products.service';
 
@@ -40,5 +43,15 @@ export class AppController {
 		await this.products.delete(product);
 
 		return { message: 'done' };
+	}
+
+	@Get('/export/:id')
+	@Header('Content-Type', 'application/x-yaml')
+	@Header('Content-Disposition', 'attachment; filename="product.yaml"')
+	async exportProduct(@Param('id', ParseIntPipe) id: number) {
+		const product = await this.products.findById(id);
+		const encoder = new TextEncoder();
+
+		return new StreamableFile(encoder.encode(YAML.stringify(product)));
 	}
 }

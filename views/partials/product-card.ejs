@@ -5,12 +5,13 @@
 			<span class="text-muted">$ <%= product.precio %></span>
 		</div>
 		<div class="d-flex gap-1">
-			<button
+			<a
+				href="/export/<%= product.id %>"
 				class="btn btn-primary"
-				onclick="exportProduct(<%= product.id %>)"
+				target="_blank"
 			>
 				Exportar
-			</button>
+			</a>
 				<button
 					class="btn btn-danger"
 					onclick="deleteProduct(<%= product.id %>)"
